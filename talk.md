@@ -95,13 +95,15 @@ type _Record<K extends string | number | symbol, T> = {
 
 ## Challenges
 
+### Medium
+
 1. First of array
 2. Concat
 3. Zip
 4. Printf
 5. Sum
 
-## Advanced
+### Advanced
 
 1. Sort
 2. ParseQueryString

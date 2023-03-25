@@ -24,11 +24,12 @@ type _Pick<T extends _Record<any, any>, K extends keyof T> = {
   [P in K]: T[P];
 };
 
-type _Omit<T extends _Record<any, any>, K extends string | number | symbol> = {
-  [P in keyof T as P extends K ? never : P]: T[P];
-};
-
 type _Excluded<U, E> = U extends E ? never : U;
+
+type _Omit<T, K extends string | number | symbol> = Pick<
+  T,
+  Exclude<keyof T, K>
+>;
 
 type _Extract<T, U> = T extends U ? T : never;
 
