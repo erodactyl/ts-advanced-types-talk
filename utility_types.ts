@@ -5,7 +5,9 @@
  *
  * https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type
  */
-type _Record<K extends string | number | symbol, T> = any;
+type _Record<K extends string | number | symbol, T> = {
+  [Key in K]: T;
+};
 
 /**
  * `Parial<Type>`
@@ -14,7 +16,9 @@ type _Record<K extends string | number | symbol, T> = any;
  *
  * https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype
  */
-type _Partial<T> = any;
+type _Partial<T> = {
+  [Key in keyof T]?: T[Key];
+};
 
 /**
  * Required<Type>
@@ -23,7 +27,9 @@ type _Partial<T> = any;
  *
  * https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype
  */
-type _Required<T> = any;
+type _Required<T> = {
+  [Key in keyof T]-?: T[Key];
+};
 
 /**
  * `Readonly<Type>`
@@ -41,7 +47,9 @@ type _Readonly<T> = any;
  *
  * https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys
  */
-type _Pick<T extends _Record<any, any>, K extends keyof T> = any;
+type _Pick<T extends _Record<any, any>, K extends keyof T> = {
+  [Key in K]: T[Key];
+};
 
 /**
  * `Omit<Type, Keys>`
@@ -62,7 +70,7 @@ type _Omit<
  *
  * https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers
  */
-type _Excluded<U, E> = any;
+type _Excluded<U, E> = U extends E ? never : U;
 
 /**
  * `Extract<Type, Union>`
@@ -80,7 +88,7 @@ type _Extract<T, U> = any;
  *
  * https://www.typescriptlang.org/docs/handbook/utility-types.html#nonnullabletype
  */
-type _NonNullable<T> = any;
+type _NonNullable<T> = T extends null ? never : T extends undefined ? never : T;
 
 /**
  *  `Parameters<Type>`
@@ -89,7 +97,11 @@ type _NonNullable<T> = any;
  *
  *  https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype
  */
-type _Parameters<Fn extends (...args: any[]) => any> = any;
+type _Parameters<Fn extends (...args: any[]) => any> = Fn extends (
+  ...args: infer Args
+) => any
+  ? Args
+  : never;
 
 /**
  * `ReturnType<Type>`
@@ -98,7 +110,11 @@ type _Parameters<Fn extends (...args: any[]) => any> = any;
  *
  * https://www.typescriptlang.org/docs/handbook/utility-types.html#returntypetype
  */
-type _ReturnType<Fn extends (...args: any[]) => any> = any;
+type _ReturnType<Fn extends (...args: any[]) => any> = Fn extends (
+  ...args: any[]
+) => infer R
+  ? R
+  : never;
 
 /**
  * `Awaited<Type>`
@@ -107,4 +123,8 @@ type _ReturnType<Fn extends (...args: any[]) => any> = any;
  *
  * https://www.typescriptlang.org/docs/handbook/utility-types.html#awaitedtype
  */
-type _Awaited<T> = any;
+type _Awaited<T> = T extends {
+  then: (onfulfilled: (res: infer R) => any) => any;
+}
+  ? _Awaited<R>
+  : T;

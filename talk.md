@@ -27,7 +27,7 @@ const map = <T, U>(list: T[], mapper: (item: T) => U) => {
 
 ```typescript
 type Point = { x: number; y: number };
-type P = keyof Point; // "x" | "y"
+type P = keyof Point; // union type "x" | "y"
 ```
 
 2. typeof
@@ -85,6 +85,10 @@ type CreateMutable<Type> = {
 type CSSSize = `${number} ${"px" | "rem"}`;
 ```
 
+8. `never` type is a way of representing an invalid state - it's a type that should never occur.
+
+9. Type pattern matching with `infer`
+
 ## Implementing the base typescript utility types
 
 ```typescript
@@ -102,6 +106,7 @@ type _Record<K extends string | number | symbol, T> = {
 3. Zip
 4. Printf
 5. Sum
+6. Two Sum (most famous leetcode problem)
 
 ### Advanced
 

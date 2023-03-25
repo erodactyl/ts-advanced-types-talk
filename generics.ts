@@ -1,5 +1,7 @@
+[1, 2, 3].map((el) => el * 2);
+
 // Without Generics
-const shitmap = (list: number[], mapper: (num: number) => number) => {
+const shitmap = (list: number[], mapper: (num: number) => number): number[] => {
   const result: number[] = [];
 
   for (let i = 0; i < list.length; i++) {
@@ -17,7 +19,7 @@ const shitres2 = shitmap(["hi", "bye"], (str) => str.charAt(0));
 console.log(shitres1, shitres2);
 
 // With Generics, allowing us to be more descriptive
-const goodmap = <T, U>(list: T[], mapper: (item: T) => U) => {
+const goodmap = <T, U>(list: T[], mapper: (item: T) => U): U[] => {
   const result: U[] = [];
 
   for (let i = 0; i < list.length; i++) {
